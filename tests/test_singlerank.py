@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 
 import pke
 
-test_file = 'tests/data/1939.xml'
-pos = {'NOUN', 'PROPN', 'ADJ'}
+test_file = "tests/data/1939.xml"
+pos = {"NOUN", "PROPN", "ADJ"}
 
 
 def test_singlerank_candidate_selection():
@@ -26,11 +26,9 @@ def test_singlerank_candidate_weighting():
     extractor.candidate_selection(pos=pos)
     extractor.candidate_weighting(window=10, pos=pos)
     keyphrases = [k for k, s in extractor.get_n_best(n=3)]
-    assert keyphrases == ['minimal supporting set',
-                          'minimal set',
-                          'linear diophantine equations']
+    assert keyphrases == ["minimal supporting set", "minimal set", "linear diophantine equations"]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_singlerank_candidate_selection()
     test_singlerank_candidate_weighting()

@@ -18,9 +18,11 @@ output_file = sys.argv[2]
 n_topics = int(sys.argv[3])
 
 # compute idf weights
-compute_lda_model(input_dir=input_dir,
-                  output_file=output_file,
-                  n_topics=n_topics,
-                  extension="xml",
-                  language="en",
-                  normalization="stemming")
+compute_lda_model(
+    input_dir=input_dir,
+    output_file=output_file,
+    n_topics=n_topics,
+    extension="xml",
+    language="en",
+    normalization="stemming",
+)

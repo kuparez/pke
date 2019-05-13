@@ -2,15 +2,16 @@
 
 """ Abstract base class for Supervised models. """
 
-from __future__ import division
 from __future__ import absolute_import
+from __future__ import division
 
 import os
+
 import six
+from sklearn.externals import joblib
+from sklearn.preprocessing import MinMaxScaler
 
 from pke.base import LoadFile
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.externals import joblib
 
 
 class SupervisedLoadFile(LoadFile):
@@ -51,11 +52,9 @@ class SupervisedLoadFile(LoadFile):
             instance = self.__class__.__name__
             # model = os.path.join(self._models, instance+"-semeval2010.pickle")
             if six.PY2:
-                model = os.path.join(self._models,
-                                     instance + "-semeval2010.py2.pickle")
+                model = os.path.join(self._models, instance + "-semeval2010.py2.pickle")
             else:
-                model = os.path.join(self._models,
-                                     instance + "-semeval2010.py3.pickle")
+                model = os.path.join(self._models, instance + "-semeval2010.py3.pickle")
 
         # load the model
         clf = joblib.load(model)

@@ -1,16 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pke.unsupervised import (
-    TopicRank, SingleRank,
-    MultipartiteRank, PositionRank,
-    TopicalPageRank, ExpandRank,
-    TextRank, TfIdf, KPMiner,
-    YAKE, FirstPhrases
-)
 from pke.supervised import Kea, WINGNUS
+from pke.unsupervised import (
+    TopicRank,
+    SingleRank,
+    MultipartiteRank,
+    PositionRank,
+    TopicalPageRank,
+    ExpandRank,
+    TextRank,
+    TfIdf,
+    KPMiner,
+    YAKE,
+    FirstPhrases,
+)
 
-test_file = 'tests/data/1939.xml'
+test_file = "tests/data/1939.xml"
 
 
 def test_unsupervised_run():
@@ -21,11 +27,17 @@ def test_unsupervised_run():
         extractor.candidate_weighting()
 
     models = [
-        TopicRank, SingleRank,
-        MultipartiteRank, PositionRank,
-        TopicalPageRank, ExpandRank,
-        TextRank, TfIdf, KPMiner,
-        YAKE, FirstPhrases
+        TopicRank,
+        SingleRank,
+        MultipartiteRank,
+        PositionRank,
+        TopicalPageRank,
+        ExpandRank,
+        TextRank,
+        TfIdf,
+        KPMiner,
+        YAKE,
+        FirstPhrases,
     ]
     for m in models:
         print("testing {}".format(m))
@@ -39,14 +51,12 @@ def test_supervised_run():
         extractor.candidate_selection()
         extractor.candidate_weighting()
 
-    models = [
-        Kea, WINGNUS
-    ]
+    models = [Kea, WINGNUS]
     for m in models:
         print("testing {}".format(m))
         test(m, test_file)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_unsupervised_run()
     test_supervised_run()

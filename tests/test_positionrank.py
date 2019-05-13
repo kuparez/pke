@@ -5,10 +5,10 @@ from __future__ import unicode_literals
 
 import pke
 
-test_file = 'tests/data/1939.xml'
+test_file = "tests/data/1939.xml"
 
 grammar = "NP: {<ADJ>*<NOUN|PROPN>+}"
-pos = {'NOUN', 'PROPN', 'ADJ'}
+pos = {"NOUN", "PROPN", "ADJ"}
 
 
 def test_positionrank_candidate_selection():
@@ -28,11 +28,9 @@ def test_positionrank_candidate_weighting():
     extractor.candidate_selection(grammar=grammar)
     extractor.candidate_weighting(window=10, pos=pos)
     keyphrases = [k for k, s in extractor.get_n_best(n=3)]
-    assert keyphrases == ['minimal supporting set',
-                          'linear diophantine equations',
-                          'minimal set']
+    assert keyphrases == ["minimal supporting set", "linear diophantine equations", "minimal set"]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_positionrank_candidate_selection()
     test_positionrank_candidate_weighting()

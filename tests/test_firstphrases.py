@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 
 import pke
 
-valid_pos = {'NOUN', 'PROPN', 'ADJ'}
-test_file = 'tests/data/1939.xml'
+valid_pos = {"NOUN", "PROPN", "ADJ"}
+test_file = "tests/data/1939.xml"
 
 
 def test_firstphrases_candidate_selection():
@@ -22,9 +22,9 @@ def test_firstphrases_candidate_weighting():
     extractor.candidate_selection(pos=valid_pos)
     extractor.candidate_weighting()
     keyphrases = [k for k, s in extractor.get_n_best(n=3)]
-    assert keyphrases == ['compatibility', 'systems', 'linear constraints']
+    assert keyphrases == ["compatibility", "systems", "linear constraints"]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_firstphrases_candidate_selection()
     test_firstphrases_candidate_weighting()

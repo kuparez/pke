@@ -5,8 +5,8 @@ from __future__ import unicode_literals
 
 import pke
 
-test_file = 'tests/data/1939.xml'
-pos = {'NOUN', 'PROPN', 'ADJ'}
+test_file = "tests/data/1939.xml"
+pos = {"NOUN", "PROPN", "ADJ"}
 
 
 def test_textrank():
@@ -14,11 +14,9 @@ def test_textrank():
 
     extractor = pke.unsupervised.TextRank()
     extractor.load_document(input=test_file)
-    extractor.candidate_weighting(top_percent=.33, pos=pos)
+    extractor.candidate_weighting(top_percent=0.33, pos=pos)
     keyphrases = [k for k, s in extractor.get_n_best(n=3)]
-    assert keyphrases == ['linear diophantine',
-                          'upper bounds',
-                          'inequations']
+    assert keyphrases == ["linear diophantine", "upper bounds", "inequations"]
 
 
 def test_textrank_with_candidate_selection():
@@ -28,13 +26,14 @@ def test_textrank_with_candidate_selection():
     extractor.load_document(input=test_file)
     extractor.candidate_selection(pos=pos)
     extractor.candidate_weighting(pos=pos)
-    keyphrases = [k
-                  for k, s in extractor.get_n_best(n=3)]
-    assert keyphrases == ['linear diophantine equations',
-                          'minimal supporting set',
-                          'nonstrict inequations']
+    keyphrases = [k for k, s in extractor.get_n_best(n=3)]
+    assert keyphrases == [
+        "linear diophantine equations",
+        "minimal supporting set",
+        "nonstrict inequations",
+    ]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_textrank()
     test_textrank_with_candidate_selection()

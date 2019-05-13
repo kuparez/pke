@@ -74,9 +74,7 @@ class MultipartiteRank(TopicRank):
         self.graph = nx.DiGraph()
         """ Redefine the graph as a directed graph. """
 
-    def topic_clustering(self,
-                         threshold=0.74,
-                         method='average'):
+    def topic_clustering(self, threshold=0.74, method="average"):
         """ Clustering candidates into topics.
 
             Args:
@@ -97,19 +95,20 @@ class MultipartiteRank(TopicRank):
         candidates, X = self.vectorize_candidates()
 
         # compute the distance matrix
-        Y = pdist(X, 'jaccard')
+        Y = pdist(X, "jaccard")
         Y = np.nan_to_num(Y)
 
         # compute the clusters
         Z = linkage(Y, method=method)
 
         # form flat clusters
-        clusters = fcluster(Z, t=threshold, criterion='distance')
+        clusters = fcluster(Z, t=threshold, criterion="distance")
 
         # for each cluster id
         for cluster_id in range(1, max(clusters) + 1):
-            self.topics.append([candidates[j] for j in range(len(clusters))
-                                if clusters[j] == cluster_id])
+            self.topics.append(
+                [candidates[j] for j in range(len(clusters)) if clusters[j] == cluster_id]
+            )
 
         # assign cluster identifiers to candidates
         for i, cluster_id in enumerate(clusters):
@@ -143,7 +142,7 @@ class MultipartiteRank(TopicRank):
 
                     weights.append(1.0 / gap)
 
-            # add weighted edges 
+            # add weighted edges
             if weights:
                 # node_i -> node_j
                 self.graph.add_edge(node_i, node_j, weight=sum(weights))
@@ -184,7 +183,7 @@ class MultipartiteRank(TopicRank):
                 boosters = []
                 for v in variants:
                     if v != first and self.graph.has_edge(v, end):
-                        boosters.append(self.graph[v][end]['weight'])
+                        boosters.append(self.graph[v][end]["weight"])
 
                 if boosters:
                     weighted_edges[(start, end)] = np.sum(boosters)
@@ -195,12 +194,9 @@ class MultipartiteRank(TopicRank):
             node_i, node_j = nodes
             position_i = 1.0 / (1 + self.candidates[node_i].offsets[0])
             position_i = math.exp(position_i)
-            self.graph[node_j][node_i]['weight'] += (boosters * alpha * position_i)
+            self.graph[node_j][node_i]["weight"] += boosters * alpha * position_i
 
-    def candidate_weighting(self,
-                            threshold=0.74,
-                            method='average',
-                            alpha=1.1):
+    def candidate_weighting(self, threshold=0.74, method="average", alpha=1.1):
         """ Candidate weight calculation using random walk.
 
             Args:

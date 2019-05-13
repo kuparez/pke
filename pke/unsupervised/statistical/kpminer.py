@@ -16,9 +16,9 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import logging
 import math
 import string
-import logging
 
 from pke.base import LoadFile
 from pke.utils import load_document_frequency_file
@@ -116,16 +116,16 @@ class KPMiner(LoadFile):
 
         # initialize default document frequency counts if none provided
         if df is None:
-            logging.warning('LoadFile._df_counts is hard coded to {}'.format(
-                self._df_counts))
-            df = load_document_frequency_file(self._df_counts, delimiter='\t')
+            logging.warning("LoadFile._df_counts is hard coded to {}".format(self._df_counts))
+            df = load_document_frequency_file(self._df_counts, delimiter="\t")
 
         # initialize the number of documents as --NB_DOC-- + 1 (current)
-        N = 1 + df.get('--NB_DOC--', 0)
+        N = 1 + df.get("--NB_DOC--", 0)
 
         # compute the number of candidates whose length exceeds one
-        P_d = sum([len(v.surface_forms) for v in self.candidates.values()
-                   if len(v.lexical_form) > 1])
+        P_d = sum(
+            [len(v.surface_forms) for v in self.candidates.values() if len(v.lexical_form) > 1]
+        )
 
         # fall back to 1 if all candidates are words
         P_d = max(1, P_d)
